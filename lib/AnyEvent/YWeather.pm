@@ -188,7 +188,8 @@ sub yweather_get {
 				$e = 'no results retrieved';
 
 			} elsif( $j->{query}{count} != 1 ){
-				$e = "expected one result, got $->{count) results";
+				$e = "expected one result, got ".
+					$j->{query}{count} ." results";
 
 			} else {
 				$data = extract( $j );

@@ -9,6 +9,7 @@ WriteMakefile(
 	# update debian/control, too!
 	'AnyEvent'	=> undef,
 	'AnyEvent::HTTP'=> undef,
+	'Sub::Name'	=> undef,
 	URI	=> undef,
 	JSON	=> undef,
 	DateTime	=> undef,

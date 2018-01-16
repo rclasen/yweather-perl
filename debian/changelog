@@ -1,3 +1,9 @@
+libanyevent-yweather-perl (0.02) stable; urgency=medium
+
+  * use Sub::Name
+
+ -- Rainer Clasen <bj@zuto.de>  Fri, 05 Jan 2018 14:18:01 +0100
+
 libanyevent-yweather-perl (0.01) unstable; urgency=low
 
   * initial release

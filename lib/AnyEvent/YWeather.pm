@@ -9,6 +9,7 @@ use AnyEvent::HTTP;
 use URI;
 use JSON;
 use DateTime;
+use Sub::Name;
 
 use base Exporter::;
 
@@ -167,7 +168,7 @@ sub yweather_get {
 		},
 		timeout	=> $a{timeout}||30,
 		persistent => 0,
-	sub {
+	subname( responsecb => sub {
 		return unless $a{cb};
 
 		my( $b, $h ) = @_;
@@ -196,7 +197,7 @@ sub yweather_get {
 			}
 		}
 		$a{cb}->( $data, $e );
-	};
+	});
 }
 
 

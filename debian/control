@@ -9,7 +9,7 @@ Standards-Version: 3.7.2
 Package: libanyevent-yweather-perl
 Architecture: all
 Depends: ${perl:Depends}, ${misc:Depends},
- libanyevent-perl, libanyevent-http-perl, libjson-perl, liburi-perl
+ libanyevent-perl, libanyevent-http-perl, libjson-perl, liburi-perl, libsub-name-perl
 Recommends: libjson-xs-perl
 Description: library for accessing yweather weather API
  routines and helper to access the yweather weather API

@@ -16,6 +16,8 @@ use base Exporter::;
 our @EXPORT = qw(yweather_get);
 
 our $VERSION = 0.01;
+our $AUTHOR = 'bj@zuto.de';
+our $USERAGENT = __PACKAGE__ ."/$VERSION $AUTHOR";
 
 # Yahoo! Weather API: http://developer.yahoo.com/weather/
 
@@ -23,14 +25,16 @@ our $VERSION = 0.01;
 
 # inlined: sub DEBUG(){1 or 0} based on ENV:
 BEGIN {
-	no strict 'refs';
+	no strict 'refs'; ## no critic (Strict)
 	*DEBUG = $ENV{ANYEVENT_YWEATHER_DEBUG} ? sub(){1} : sub(){0};
 }
-sub DPRINT { DEBUG && print STDERR $_[0]."\n"; }
+sub DPRINT { DEBUG && print STDERR $_[0]."\n"; return; } ## no critic (unpack)
 
-use Data::Dumper;
+if( DEBUG ){
+	use Data::Dumper;
+}
 
-sub F_to_C($) {
+sub F_to_C {
 	my( $F )= @_;
 
 	defined $F
@@ -39,7 +43,7 @@ sub F_to_C($) {
 	return int( ( $F-32 )*5/9 +0.5 );
 }
 
-sub inHg_to_hPa($) {
+sub inHg_to_hPa {
 	my( $inHg )= @_;
 
 	defined $inHg
@@ -48,7 +52,7 @@ sub inHg_to_hPa($) {
 	return int( $inHg/33.86390 +0.5);
 }
 
-sub miles_to_km($) {
+sub miles_to_km {
 	my( $miles )= @_;
 
 	defined $miles
@@ -77,7 +81,7 @@ our %monthindex;
 	}  qw/Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec/;
 }
 
-sub date_to_epoch($) {
+sub date_to_epoch {
 	my( $value )= @_;
 
 	defined $value
@@ -160,9 +164,9 @@ sub yweather_get {
 		."&format=json"
 		."&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
 
-	http_post $uri, "",
+	return http_post $uri, "",
 		headers	=> {
-			'User-Agent'	=> 'AnyEvent::YWeather',
+			'User-Agent'	=>  $USERAGENT,
 			'Accept'	=> 'application/json',
 			"Accept-Charset"	=> "utf-8",
 		},
